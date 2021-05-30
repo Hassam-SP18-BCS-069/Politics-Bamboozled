@@ -1,4 +1,4 @@
-5.1 C# Code for Initializing game
+// C# Code for Initializing game
 
 using System;
  
@@ -13,14 +13,16 @@ namespace PoliticsBamboozled
             //Wait for user input to end program
             Console.ReadLine();
         }
- 5.2 C# Code for Game Start Method
+        
+ // C# Code for Game Start Method
         //game start method
         public static void StartFight()
         {
             //instantiate player and Non_Player
             Player player = new Player( new Punch(3), new Kick(2));
             Player Non_player = new Player(new Punch(3), new Kick(2));
-  5.3 C# Code for Starting the Fight 
+            
+  // C# Code for Starting the Fight 
             //start the fight
             bool playerTurn = true;
             int playerChoice;
@@ -55,7 +57,7 @@ namespace PoliticsBamboozled
                         playerTurn = EndTurn(playerTurn);
                     }
                 }
- 5.4 C# Code for Health Bar Involvement               
+ // C# Code for Health Bar Involvement               
                 if (!playerTurn)
                 {
                     if (Non_Player.Health > 0)
@@ -78,7 +80,7 @@ namespace PoliticsBamboozled
             }
         }
  
-   5.5 C# Code for Utility Method
+   // C# Code for Utility Method
         public static bool EndTurn(bool playerTurn)
         {
             return playerTurn = false;
@@ -88,7 +90,8 @@ namespace PoliticsBamboozled
             return playerTurn = true;
         }
     }
- 5.6 C# Code for Character Moves
+    
+ // C# Code for Character Moves
     //characters
     class Player
     {
