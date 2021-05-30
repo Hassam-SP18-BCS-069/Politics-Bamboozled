@@ -1,0 +1,164 @@
+5.1 C# Code for Initializing game
+
+using System;
+ 
+namespace PoliticsBamboozled
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //Start the fight
+            StartFight();
+            //Wait for user input to end program
+            Console.ReadLine();
+        }
+ 5.2 C# Code for Game Start Method
+        //game start method
+        public static void StartFight()
+        {
+            //instantiate player and Non_Player
+            Player player = new Player( new Punch(3), new Kick(2));
+            Player Non_player = new Player(new Punch(3), new Kick(2));
+  5.3 C# Code for Starting the Fight 
+            //start the fight
+            bool playerTurn = true;
+            int playerChoice;
+            //show options to user if player and Non_Player are alive
+            while (player.Health > 0 && Non_Player.Health > 0)
+            {
+                //player's turn
+                if (playerTurn)
+                {
+                    //show your health
+                    Console.WriteLine("Your Health: " + player.Health);
+                    //show Com's health
+                    Console.WriteLine("Com's Health: " + Non_Player.Health);
+                    //show options
+                    Console.WriteLine("\nWhat will you do?");
+                    Console.WriteLine("1 - Attack with Punch");
+                    Console.WriteLine("2 - Attack with Kick");
+                    //get the player's choice
+                    playerChoice = Convert.ToInt32(Console.ReadLine());
+                    if (playerChoice == 1)
+                    {
+                        //attack with Punch, target Com
+                        player.AttackWith(player.Punch, Non_Player);
+                        //end the player's turn
+                        playerTurn = EndTurn(playerTurn);
+                    }
+                    else if (playerChoice == 2)
+                    {
+                        //attack with Kick, target Com
+                        player.AttackWith(player.Kick,  Non_Player);
+                        //end the player's turn
+                        playerTurn = EndTurn(playerTurn);
+                    }
+                }
+ 5.4 C# Code for Health Bar Involvement               
+                if (!playerTurn)
+                {
+                    if (Non_Player.Health > 0)
+                    {
+                        //attack player
+                        Non_Player.Attack(Non_Player , player);
+                        playerTurn = BeginTurn(playerTurn);
+                    }
+                }
+            }
+            //if player is still alive, display winning message
+            if (player.Health > 0 || player.Health > 0 && Non_Player.Health > 0)
+            {
+                Console.WriteLine("\nCongratulations! You have defeated the Com!");
+            }
+            //else if Non_Playeris alive display losing message
+            else if (Non_Player.Health > 0)
+            {
+                Console.WriteLine("\nGame over. You have been defeated by the Com!");
+            }
+        }
+ 
+   5.5 C# Code for Utility Method
+        public static bool EndTurn(bool playerTurn)
+        {
+            return playerTurn = false;
+        }
+        public static bool BeginTurn(bool playerTurn)
+        {
+            return playerTurn = true;
+        }
+    }
+ 5.6 C# Code for Character Moves
+    //characters
+    class Player
+    {
+        public int Health { get; set; }
+        public Punch punch { get; set; }
+        public Kick kick { get; set; }
+ 
+        public Player(int health, Punch Punch, Kick Kick)
+        {
+            this.Health = health;
+            this.Punch = punch;
+            this.Kick = kick;
+        }
+ 
+        public void AttackWith(Punch punch, Non_Player)
+        {
+                     Non_Player.Health -= Punch.Attack;
+ 
+        }
+ 
+        public void AttackWith(Kick Kick, Non_Player)
+        {
+                       Non_Player.Health -= Kick.Attack;
+        }
+    }
+    class Non_Player
+    {
+        public int Health { get; set; }
+        public int AttackPower { get; set; }
+ 
+        public Non_Player(int health, int attackPower)
+        {
+            this.Health = health;
+            this.AttackPower = attackPower;
+        }
+ 
+        public void Attack(Non_Player, Player player)
+        {
+                      player.Health -= Non_Player.AttackPower;
+        }
+ 
+    }
+    //items
+    class Punch
+    {
+        public int Attack { get; set; }
+ 
+        public Punch(int attack)
+        {
+            this.Attack = attack;
+        }
+ 
+        public void ShowStats()
+        {
+            Console.WriteLine("Your Punch's base attack power is: " + this.Attack);
+        }
+    }
+    class Kick
+    {
+        public int Attack { get; set; }
+ 
+        public Kick(int attack)
+        {
+            this.Attack = attack;
+        }
+ 
+        public void ShowStats()
+        {
+            Console.WriteLine("Your Kick's base attack power is: " + this.Attack);
+        }
+    }
+}
+
